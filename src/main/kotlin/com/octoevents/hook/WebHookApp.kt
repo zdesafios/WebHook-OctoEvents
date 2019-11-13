@@ -17,6 +17,8 @@ fun main(args: Array<String>) {
         val id = json.read<Int>("$.number")
         val issueAsMap = json.read<Map<String, Object>>("$.issue")
 
+        print(issueAsMap)
+
     }
 }
 

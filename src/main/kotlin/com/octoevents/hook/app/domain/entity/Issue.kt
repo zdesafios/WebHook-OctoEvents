@@ -1,4 +1,4 @@
-package com.octoevents.hook.domain.entity
+package com.octoevents.hook.app.domain.entity
 
 import java.util.*
 
@@ -10,4 +10,4 @@ data class Issue(val id: Int,
                  val number: Int,
                  val createdAt: Date,
                  val updatedAt: Date,
-                 val closedAt: Date) {}
+                 val closedAt: Date)

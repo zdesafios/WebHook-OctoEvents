@@ -1,7 +1,8 @@
 package com.octoevents.hook
 
 import com.google.gson.GsonBuilder
-import com.jayway.jsonpath.JsonPath
+import com.octoevents.hook.app.config.AppModules
+import com.octoevents.hook.app.config.DIConfig
 import com.octoevents.hook.app.domain.repository.IssueRepository
 import com.octoevents.hook.app.domain.service.IssueService
 import com.octoevents.hook.app.utils.IssueConverter
@@ -12,12 +13,14 @@ import io.javalin.plugin.json.FromJsonMapper
 import io.javalin.plugin.json.JavalinJson
 import java.util.*
 import io.javalin.plugin.json.ToJsonMapper
-
-
+import org.koin.core.context.startKoin
 
 
 fun main(args: Array<String>) {
-    val router: Router = Router(IssueController(IssueService(IssueRepository()), IssueConverter()))
+    startKoin {
+        printLogger()
+        modules(AppModules.allModules)
+    }
     val gson = GsonBuilder().create()
 
     JavalinJson.fromJsonMapper = object: FromJsonMapper {
@@ -27,8 +30,9 @@ fun main(args: Array<String>) {
     JavalinJson.toJsonMapper = object : ToJsonMapper {
         override fun map(obj: Any): String = gson.toJson(obj)
     }
+
     val app = Javalin.create().start(9000)
-    router.register(app)
+    DIConfig().router.register(app)
 
 }
 

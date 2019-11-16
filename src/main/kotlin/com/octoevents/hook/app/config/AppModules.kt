@@ -1,5 +1,6 @@
 package com.octoevents.hook.app.config
 
+import com.octoevents.hook.app.AppStarter
 import com.octoevents.hook.app.domain.repository.IssueRepository
 import com.octoevents.hook.app.domain.service.IssueService
 import com.octoevents.hook.app.utils.IssueConverter
@@ -10,7 +11,7 @@ import org.koin.dsl.module
 object AppModules {
 
     private val configModule = module {
-        single { DIConfig() }
+        single { AppStarter() }
         single { Router(get()) }
     }
 
@@ -20,8 +21,15 @@ object AppModules {
     }
 
     private val domainModule = module {
-        single { IssueRepository() }
+        single { IssueRepository(get()) }
         single { IssueService(get()) }
+        single {
+            DbConfig(
+                getProperty<String>("db.url"),
+                getProperty<String>("db.username"),
+                getProperty<String>("db.password")
+            ).dataSource()
+        }
     }
 
     internal val allModules = listOf(configModule, webModule, domainModule)

@@ -7,9 +7,9 @@ data class IssueDTO (
 )
 
 data class Issue (
-    val id : Int,
+    val id : Long,
     val url : String,
-    val number : Int,
+    val number : Long,
     val title : String,
     val body : String,
     val user : User?,
@@ -20,7 +20,7 @@ data class Issue (
     val comments : Int,
     val created_at : String,
     val updated_at : String,
-    val closed_at : String
+    val closed_at : String?
 )
 
 data class Repository (

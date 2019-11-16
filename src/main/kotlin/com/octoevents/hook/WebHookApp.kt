@@ -2,7 +2,7 @@ package com.octoevents.hook
 
 import com.google.gson.GsonBuilder
 import com.octoevents.hook.app.config.AppModules
-import com.octoevents.hook.app.config.DIConfig
+import com.octoevents.hook.app.AppStarter
 import io.javalin.Javalin
 import io.javalin.plugin.json.FromJsonMapper
 import io.javalin.plugin.json.JavalinJson
@@ -12,6 +12,7 @@ import org.koin.core.context.startKoin
 
 fun main(args: Array<String>) {
     startKoin {
+        fileProperties()
         printLogger()
         modules(AppModules.allModules)
     }
@@ -26,7 +27,7 @@ fun main(args: Array<String>) {
     }
 
     val app = Javalin.create().start(9000)
-    DIConfig().router.register(app)
+    AppStarter().router.register(app)
 
 }
 

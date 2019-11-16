@@ -11,7 +11,9 @@ class IssueController(private val issueService: IssueService, private val issueC
     // Verificar se o webhook qual status deve voltar
     fun save(context: Context) {
         context.bodyValidator<IssueDTO>()
-            .check({it?.action.isNullOrBlank()}).also { validator ->
+            .check({dto->
+                dto?.action.isBlank()
+            }).also { validator ->
                 val issueForSave = issueConverter.toIssue(validator.value)
                 print(issueForSave.toString())
                 issueService.create(issueForSave)

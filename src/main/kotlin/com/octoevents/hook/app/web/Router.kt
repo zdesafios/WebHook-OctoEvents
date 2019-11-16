@@ -8,4 +8,5 @@ class Router(private val issueController: IssueController) {
     fun register(app: Javalin) {
         app.post("/payload", issueController::save)
     }
+
 }

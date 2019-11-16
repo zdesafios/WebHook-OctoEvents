@@ -3,15 +3,9 @@ package com.octoevents.hook
 import com.google.gson.GsonBuilder
 import com.octoevents.hook.app.config.AppModules
 import com.octoevents.hook.app.config.DIConfig
-import com.octoevents.hook.app.domain.repository.IssueRepository
-import com.octoevents.hook.app.domain.service.IssueService
-import com.octoevents.hook.app.utils.IssueConverter
-import com.octoevents.hook.app.web.Router
-import com.octoevents.hook.app.web.controllers.IssueController
 import io.javalin.Javalin
 import io.javalin.plugin.json.FromJsonMapper
 import io.javalin.plugin.json.JavalinJson
-import java.util.*
 import io.javalin.plugin.json.ToJsonMapper
 import org.koin.core.context.startKoin
 

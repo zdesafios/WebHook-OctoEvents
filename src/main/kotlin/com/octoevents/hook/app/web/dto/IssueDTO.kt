@@ -1,9 +1,9 @@
 package com.octoevents.hook.app.web.dto
 
 data class IssueDTO (
-    val action : String?,
-    val issue: Issue?,
-    val repository: Repository?
+    val action : String,
+    val issue: Issue,
+    val repository: Repository
 )
 
 data class Issue (

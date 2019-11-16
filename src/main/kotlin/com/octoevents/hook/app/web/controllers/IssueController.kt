@@ -15,7 +15,6 @@ class IssueController(private val issueService: IssueService, private val issueC
                 dto?.action.isBlank()
             }).also { validator ->
                 val issueForSave = issueConverter.toIssue(validator.value)
-                print(issueForSave.toString())
                 issueService.create(issueForSave)
                 context.res.status = HttpStatus.CREATED_201;
                 context.result("")

@@ -15,7 +15,7 @@ class IssueConverter {
     private val formatter: DateTimeFormatter = DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ss'Z'");
 
     fun toIssue(issueDTO: IssueDTO?): Issue {
-        var closedAt: DateTime = DateTime.now();
+        var closedAt: DateTime? = null;
         if(issueDTO?.issue?.closed_at != null) {
             closedAt = formatter.parseDateTime(issueDTO?.issue?.closed_at!!)
         }

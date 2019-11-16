@@ -14,4 +14,4 @@ data class Issue(val id: Long,
                  val number: Long,
                  val createdAt: DateTime,
                  val updatedAt: DateTime,
-                 val closedAt: DateTime)
+                 val closedAt: DateTime?)

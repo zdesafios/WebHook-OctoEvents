@@ -15,7 +15,7 @@ private object Issues: Table() {
     val number: Column<Long> = long(name = "number")
     val createdAt: Column<DateTime> = date(name="create_at")
     val updatedAt: Column<DateTime> = date(name="updated_at")
-    val closedAt: Column<DateTime> = date(name="closed_at")
+    val closedAt: Column<DateTime?> = date(name="closed_at").nullable()
 }
 
 class IssueRepository(private val dataSource: DataSource) {
@@ -26,6 +26,8 @@ class IssueRepository(private val dataSource: DataSource) {
     }
 
     fun save(issue: Issue) {
+        println("-----------Save-------------")
+        println(issue)
         transaction(Database.connect(dataSource)) {
             Issues.insert { row ->
                 row[id] = issue.id

@@ -32,14 +32,14 @@ class IssueConverter() {
     }
 
     fun toIssueResume(issues: List<Issue>): List<IssueResumeDTO> {
-        return issues.map {i-> toIssueResume(i) }
+        return issues.map {i-> toIssueResume(i) }.sortedBy(IssueResumeDTO::createdAt)
     }
 
     fun toIssueResume(issue: Issue): IssueResumeDTO {
         return IssueResumeDTO(
             id = issue.id,
             number = issue.number,
-            action = issue.title,
+            action = issue.action,
             title = issue.title,
             createdAt = f.format(issue.createdAt.toDate()),
             updatedAt = f.format(issue.updatedAt.toDate()),

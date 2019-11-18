@@ -58,7 +58,7 @@ class IssueRepository(private val dataSource: DataSource) {
 
     fun findByNumber(number: Long): List<Issue> {
         return transaction(Database.connect(dataSource)) {
-            Issues.select{Issues.number eq number}.map { row->
+            Issues.select{Issues.number eq number}.sortedBy {  Issues.createdAt }.map { row->
                 Issues.loadFromRow(row)
             }
         }

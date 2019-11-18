@@ -16,6 +16,20 @@ private object Issues: Table() {
     val createdAt: Column<DateTime> = date(name="create_at")
     val updatedAt: Column<DateTime> = date(name="updated_at")
     val closedAt: Column<DateTime?> = date(name="closed_at").nullable()
+
+    fun loadFromRow(row: ResultRow): Issue {
+        return Issue(
+            row[id],
+            row[action],
+            row[url],
+            row[title],
+            row[user],
+            row[number],
+            row[createdAt],
+            row[updatedAt],
+            row[closedAt]
+        );
+    }
 }
 
 class IssueRepository(private val dataSource: DataSource) {
@@ -26,8 +40,6 @@ class IssueRepository(private val dataSource: DataSource) {
     }
 
     fun save(issue: Issue) {
-        println("-----------Save-------------")
-        println(issue)
         transaction(Database.connect(dataSource)) {
             Issues.insert { row ->
                 row[id] = issue.id
@@ -39,6 +51,15 @@ class IssueRepository(private val dataSource: DataSource) {
                 row[createdAt] = issue.createdAt
                 row[updatedAt] = issue.updatedAt
                 row[closedAt] = issue.closedAt
+            }
+            commit()
+        }
+    }
+
+    fun findByNumber(number: Long): List<Issue> {
+        return transaction(Database.connect(dataSource)) {
+            Issues.select{Issues.number eq number}.map { row->
+                Issues.loadFromRow(row)
             }
         }
     }

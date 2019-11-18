@@ -9,4 +9,9 @@ class IssueService(private val issueRepository: IssueRepository) {
         issueRepository.save(issue)
     }
 
+    fun getByNumber(number: Long): List<Issue> {
+        return issueRepository.findByNumber(number)
+    }
+
+
 }

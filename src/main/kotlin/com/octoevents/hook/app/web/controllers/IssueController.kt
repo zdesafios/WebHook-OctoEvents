@@ -20,4 +20,9 @@ class IssueController(private val issueService: IssueService, private val issueC
                 context.result("")
             }
     }
+
+    fun getByNumber(context: Context): Unit {
+        println(context.pathParam("number").toLong())
+        context.json(issueConverter.toIssueResume(issueService.getByNumber(context.pathParam("number").toLong())))
+    }
 }

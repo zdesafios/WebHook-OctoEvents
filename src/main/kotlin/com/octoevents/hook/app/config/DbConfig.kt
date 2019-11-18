@@ -12,6 +12,7 @@ class DbConfig(jdbcUrl: String, username: String, password: String) {
             hikariConfig.jdbcUrl =  jdbcUrl
             hikariConfig.username = username
             hikariConfig.password = password
+            hikariConfig.driverClassName = "com.mysql.cj.jdbc.Driver"
             HikariDataSource(hikariConfig)
         };
     }

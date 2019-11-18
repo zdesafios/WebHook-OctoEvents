@@ -2,17 +2,16 @@ package com.octoevents.hook.app.utils
 
 import com.octoevents.hook.app.domain.entity.Issue
 import com.octoevents.hook.app.web.dto.IssueDTO
+import com.octoevents.hook.app.web.dto.IssueResumeDTO
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
 import org.joda.time.format.DateTimeFormatter
-import org.joda.time.format.DateTimeFormatterBuilder
 import java.text.SimpleDateFormat
-import java.util.Locale
 
 
-
-class IssueConverter {
-    private val formatter: DateTimeFormatter = DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ss'Z'");
+class IssueConverter() {
+    private val formatter: DateTimeFormatter = DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ss'Z'")
+    private val f = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'")
 
     fun toIssue(issueDTO: IssueDTO?): Issue {
         var closedAt: DateTime? = null;
@@ -29,7 +28,23 @@ class IssueConverter {
             createdAt = formatter.parseDateTime(issueDTO.issue.created_at),
             updatedAt = formatter.parseDateTime(issueDTO.issue.updated_at),
             closedAt = closedAt
-         );
+         )
+    }
+
+    fun toIssueResume(issues: List<Issue>): List<IssueResumeDTO> {
+        return issues.map {i-> toIssueResume(i) }
+    }
+
+    fun toIssueResume(issue: Issue): IssueResumeDTO {
+        return IssueResumeDTO(
+            id = issue.id,
+            number = issue.number,
+            action = issue.title,
+            title = issue.title,
+            createdAt = f.format(issue.createdAt.toDate()),
+            updatedAt = f.format(issue.updatedAt.toDate()),
+            closedAt = f.format(issue.createdAt.toDate())
+        )
     }
 
 }
